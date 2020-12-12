@@ -19,13 +19,23 @@ _UNLOCKED_STAGE_SELECT = False    # 해금된 스테이지의 선택 유무 - Fa
 class Stage():
     def __init__(self):
         self.stage_info = 0
+        self.font = pygame.font.Font("Fonts/NanumMyeongjoExtraBold.ttf", 30)
+
+    def readtxt(self, stage):
+        f = open("Assets/Resources/Stage/stage{}".format(stage) + ".txt", "r")
+        line = f.readlines()
+        f.close()
+        return line
 
     def selectStage(self):
 
         global running, _UNLOCKED_STAGE_SELECT
+        self.stage_info = 0
+
         while running:
             clock.tick(30)
             screen.blit(background, (0,0))
+
 
             # 이벤트 처리
             for event in pygame.event.get():
@@ -57,18 +67,39 @@ class Stage():
                 if b['locked']:
                     screen.blit(BUTTONS._LOCKED_IMAGE, b['pos'])
                 else:
-                    screen.blit(b['button'], b['pos'])
+                    if b['num'] == self.stage_info:
+                        screen.blit(b['selected'], b['pos'])
+                    else:
+                        screen.blit(b['button'], b['pos'])
 
-            screen.blit(BUTTONS._BACK, BUTTONS._BACK_RECT)    # Back 버튼
+
+            screen.blit(BUTTONS._BACK, BUTTONS._BACK_RECT)  # Back 버튼
+
+            self.clear_misson = []
+            self.clearLabel = [i for i in range(3)]
+            self.clearLabelPos = [(230, 300), (230, 400), (230, 500)]
+
+
 
             if _UNLOCKED_STAGE_SELECT:        # 현재 해금된 스테이지를 클릭했는지
                 screen.blit(BUTTONS._STAGE_START, (540, 580))
-            else:
-                screen.blit(BUTTONS._STAGE_START, (2000, 2000))
+
+                screen.blit(BUTTONS._MISSION_TABLE, (180, 270))
+
+                for i in range(14, 16):
+                    self.clear_misson.append(self.readtxt(self.stage_info)[i].strip())
+                self.clearStr = ["-  게임 클리어", "-  콤보 {}".format(self.clear_misson[0]) + "이상",
+                                 "-  " + self.clear_misson[1] + "초 이내 클리어"]
+                for i in range(3):
+                    self.clearLabel[i] = self.font.render(self.clearStr[i], True, (0, 0, 0))
+                for i in range(3):
+                    screen.blit(self.clearLabel[i], self.clearLabelPos[i])
 
 
             # 화면에 업데이트
             pygame.display.update()
+
+
 
 '''if __name__ == '__main__':
     selectStage()'''
