@@ -171,9 +171,9 @@ class GameManager:
         crashed = False
         while not crashed:
             for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    return "Quit"
                 if (not self.isEndgame):
-                    if event.type == pygame.QUIT:
-                        crashed = True
                     if event.type == pygame.KEYDOWN:
                         if event.key == pygame.K_LEFT:
                             player.move("-")

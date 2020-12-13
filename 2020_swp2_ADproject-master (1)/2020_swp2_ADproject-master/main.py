@@ -46,7 +46,9 @@ while running:
     elif _GAME_SCENE:
         stageConse = GameManager(selectStage.stage_info)
         games = stageConse.game(selectStage.stage_info)
-        if games == "Select_Stage":
+        if games == "Quit":
+            running = False
+        elif games == "Select_Stage":
             _GAME_SCENE = False
             selectStages._UNLOCKED_STAGE_SELECT = False
             _STAGE_SELECT = True
