@@ -44,7 +44,6 @@ while running:
             _STAGE_SELECT = False
             _GAME_SCENE = True
     elif _GAME_SCENE:
-        print(3)
         stageConse = GameManager(selectStage.stage_info)
         games = stageConse.game(selectStage.stage_info)
         if games == "Select_Stage":

@@ -15,6 +15,8 @@ clock = pygame.time.Clock()
 
 # while loop 실행 조건
 running = True
+font = pygame.font.Font("Fonts/NanumMyeongjoExtraBold.ttf", 100)
+title = font.render("Rain Stone", True, (0, 0, 0))
 
 def startScreen():
 
@@ -23,6 +25,7 @@ def startScreen():
     while running:
         clock.tick(60)
         screen.blit(background, (0, 0))
+        screen.blit(title, (400, 100))
 
         # 이벤트 처리
         for event in pygame.event.get():
