@@ -42,15 +42,6 @@ class Stage():
                 if event.type == pygame.QUIT:
                     running = False
                     return "Quit"
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_e:        # 스테이지 언락키, 이스터에그로 남겨두거나 추후 삭제 가능
-                        for b in BUTTONS._STAGE_BUTTONS:
-                            if b['locked']:
-                                b['locked'] = False
-                                print(b['name'],"unlocked")
-                                break
-                            else:
-                                continue
                 if event.type == pygame.MOUSEBUTTONUP:    # 마우스 클릭
                     curr_x, curr_y = event.pos
                     if BUTTONS._BACK_RECT.collidepoint(curr_x, curr_y):    # _BACK 누르면 start 화면으로 돌아가는 기능을 main에 추가
